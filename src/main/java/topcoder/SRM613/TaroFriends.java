@@ -42,3 +42,4 @@ public class TaroFriends {
         return new IntArrayStats(min, max, min + (max-min)/2d);
     }
 }
+
