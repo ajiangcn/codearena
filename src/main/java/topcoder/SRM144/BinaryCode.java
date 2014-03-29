@@ -57,7 +57,7 @@ public class BinaryCode {
     private String intArray2String(int[] intArray) {
         char[] result = new char[intArray.length];
         for(int i=0; i<intArray.length; i++) {
-            result[i] = Character.forDigit(intArray[i], 10);
+            result[i] = intArray[i] == 0 ? '0' : '1';
         }
         return String.valueOf(result);
     }
