@@ -16,6 +16,6 @@ class CandyTest extends FunSuite {
 
   test("test candy 1,0,2") {
     val solution = new Candy
-    assert(solution.candy(Array(1,2,2)) === 5)
+    assert(solution.candy(Array(1,0,2)) === 4)
   }
 }
