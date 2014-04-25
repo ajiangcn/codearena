@@ -42,4 +42,19 @@ public class ValidateBinarySearchTree {
             }
         }
     }
+
+    public boolean isValidBST2(TreeNode root, TreeNode previous) {
+        if(root != null) {
+            if (!isValidBST2(root.left, previous)) {
+                return false;
+            }
+            if(previous != null && previous.val > root.val) {
+                return false;
+            }
+            previous = root;
+            return isValidBST2(root.right, previous);
+        }
+
+        return true;
+    }
 }
