@@ -10,8 +10,8 @@ class SearchForARangeTest extends FunSuite {
     val input = Array(5,7,7,8,8,10)
     val result1 = new SearchForARange().searchRange(input, 8)
     val expectedResult1 = Array(3,4)
-    assert(result == expectedResult1)
-
+    assert(result1(0) === expectedResult1(0))
+    assert(result1(1) === expectedResult1(1))
   }
 
 }
