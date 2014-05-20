@@ -36,8 +36,8 @@ public class LSWRC {
             } else {
                 ucs.add(s.substring(i, i+1));
             }
-
         }
+        maxLen = maxLen < ucs.size() ? ucs.size() : maxLen;
 
         return maxLen;
     }

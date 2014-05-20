@@ -13,6 +13,9 @@ class LSWRCTest extends FunSuite {
 
     val result2 = new LSWRC().lengthOfLongestSubstring("hnwnkuewhsqmgbbuqcljjivswmdkqtbxixmvtrrbljptnsnfwzqfjmafadrrwsofsbcnuvqhffbsaqxwpqcac")
     assert(result2 === 12)
+
+    val result3 = new LSWRC().lengthOfLongestSubstring("qopubjguxhxdipfzwswybgfylqvjzhar")
+    assert(result3 === 12)
   }
 
   test("test performance") {
