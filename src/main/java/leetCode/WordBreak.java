@@ -4,7 +4,93 @@ import java.util.*;
 
 public class WordBreak {
 
+    // dynamic programming
+    public boolean wordBreak(String s, Set<String> dict) {
+        int wlen = s.length();
+
+        // array indicate whether the substring(0, i) is breakable
+        boolean[] T = new boolean[wlen+1];
+        T[0] = true;
+        for(int i=0; i<=wlen; i++) {
+            if(!T[i]) {
+                continue;
+            }
+
+            for (String w : dict) {
+                int len = w.length();
+                int endIdx = i + len;
+                if (endIdx > s.length()) {
+                    continue;
+                }
+
+                String tmp = s.substring(i, endIdx);
+                if (dict.contains(tmp)) {
+                    T[endIdx] = true;
+                }
+            }
+        }
+        return T[s.length()];
+    }
+
+    /**
+     * DP for word break II
+     */
     public ArrayList<String> wordBreakII(String s, Set<String> dict) {
+        int wlen = s.length();
+
+        // array indicate whether the substring(0, i) is breakable
+        List<List<Integer>> T = new ArrayList<List<Integer>>(s.length()+1);
+        for (int i=0; i<=s.length(); i++) {
+            T.add(i, new ArrayList<Integer>());
+        }
+        List<Integer> zeroIdx= new ArrayList<Integer>();
+        zeroIdx.add(0);
+        T.set(0, zeroIdx);
+
+        for(int i=0; i<=wlen; i++) {
+            if(T.get(i).size() == 0) {
+                continue;
+            }
+
+            for (String w : dict) {
+                int len = w.length();
+                int endIdx = i + len;
+                if (endIdx > s.length()) {
+                    continue;
+                }
+
+                String tmp = s.substring(i, endIdx);
+                if (tmp.equals(w)) {
+                        T.get(endIdx).add(i);
+                }
+            }
+        }
+
+        List<String> stack = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<String>();
+        wordBreakIIHelper(s, s.length(), T, stack, result);
+        return result;
+    }
+
+    public void wordBreakIIHelper(String s, int idx, List<List<Integer>> indexes, List<String> solution, List<String> result) {
+
+        if (idx == 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int i=solution.size()-1; i>=0; i--) {
+                sb.append(solution.get(i) + " ");
+            }
+            result.add(sb.toString().trim());
+        } else {
+            for (int i=0; i<indexes.get(idx).size(); i++) {
+                int startIdx = indexes.get(idx).get(i);
+                solution.add(s.substring(startIdx, idx));
+                wordBreakIIHelper(s, startIdx,indexes,solution,result);
+                solution.remove(solution.size()-1);
+            }
+        }
+    }
+
+    public ArrayList<String> wordBreakIINaive(String s, Set<String> dict) {
         int max = 0;
         Set<String> jSet = new HashSet<String>();
         for (String str : dict) {
@@ -22,7 +108,8 @@ public class WordBreak {
         return result;
     }
 
-    public boolean wordBreak(String s, Set<String> dict) {
+    // naive method
+    public boolean wordBreakNaive(String s, Set<String> dict) {
         int max = 0;
         Set<String> jSet = new HashSet<String>();
         for (String str : dict) {
