@@ -22,8 +22,13 @@ public class Percolation {
         this.sites = new int[N+1][N+1];
         this.uf = new QuickFind((N+1)*(N+1) + 1);
         this.N = N;
-        this.virtualButtomIdx = 0;
+        this.virtualTopIdx = 0;
         this.virtualButtomIdx = (N+1) * (N+1) + 1;
+
+        for (int i=1; i<=N; i++) {
+            uf.union(virtualTopIdx, getIndex(1, i));
+            uf.union(virtualButtomIdx, getIndex(N, i));
+        }
     }
 
     /**
@@ -49,16 +54,14 @@ public class Percolation {
      * is site (row i, row j) full?
      */
     public boolean isFull(int i, int j) {
-        //TODO
-        return false;
+        return uf.find(virtualTopIdx, getIndex(i, j));
     }
 
     /**
      * does the system percolate?
      */
     public boolean percolates() {
-        //TODO
-        return false;
+        return uf.find(virtualTopIdx, virtualButtomIdx);
     }
 
     private int getIndex(int i, int j) {
