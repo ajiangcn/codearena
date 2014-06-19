@@ -1,5 +1,7 @@
 package algs4.dynamicConnectivity;
 
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+
 public class PercolationStats {
 
     private double[] tests;
@@ -27,7 +29,7 @@ public class PercolationStats {
      * sample standard deviation of percolation threshold
      */
     public double stddev() {
-        return StdStats.stddev(tests);
+        return new StandardDeviation().evaluate(tests);
     }
 
     /**
